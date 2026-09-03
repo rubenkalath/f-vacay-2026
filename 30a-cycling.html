@@ -88,7 +88,7 @@
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tab[aria-pressed="true"] { color:#08201F; } }
 
   .mapframe { background:var(--surface); border:1px solid var(--line); border-radius:4px; overflow-x:auto; box-shadow:var(--shadow); }
-  .mapframe svg { display:block; width:100%; min-width:640px; height:auto; }
+  .mapframe svg { display:block; width:100%; max-width:640px; min-width:480px; margin:0 auto; height:auto; }
   .maplegend {
     display:flex; flex-wrap:wrap; gap:18px 26px; margin-top:12px;
     font-family:"Overpass",sans-serif; font-size:13px; color:var(--ink-2);
@@ -173,12 +173,12 @@
   <header class="masthead">
     <div class="eyebrow">Mon 7 – Sat 12 September · Dune Allen Beach, Walton County, Florida</div>
     <h1>30A Ride Book</h1>
-    <p class="lede">Four road routes out of <strong>5664 W County Hwy 30A</strong>, built around the one hard constraint of this coastline: there is exactly <strong>one bridge</strong> across Choctawhatchee Bay, and everything longer than a lap of 30A goes over it. Sunrise is <strong>6:27&nbsp;a.m.</strong>; by ten o'clock the heat index is the story.</p>
+    <p class="lede">Four road routes out of <strong>5664 W County Hwy 30A</strong> — every one a there-and-back from the front door, no shuttle, no pickup. They're built around the one hard constraint of this coastline: there is exactly <strong>one bridge</strong> across Choctawhatchee Bay, and everything longer than a lap of 30A goes over it. Sunrise is <strong>6:27&nbsp;a.m.</strong>; by ten o'clock the heat index is the story.</p>
     <div class="glance">
       <a href="#r1"><span class="n mono">33</span><span class="l">30A End to End</span></a>
       <a href="#r2"><span class="n mono">43</span><span class="l">Coast + Two Spurs</span></a>
-      <a href="#r3"><span class="n mono">62</span><span class="l">Bay Bridge &amp; Black Creek</span></a>
-      <a href="#r4"><span class="n mono">98</span><span class="l">The Ebro Century</span></a>
+      <a href="#r3"><span class="n mono">70</span><span class="l">Bay Bridge to Bruce</span></a>
+      <a href="#r4"><span class="n mono">103</span><span class="l">Ponce de Leon Springs</span></a>
     </div>
   </header>
 
@@ -187,12 +187,12 @@
       <span class="lbl">Show route</span>
       <button class="tab" data-route="r1" aria-pressed="true">33 mi</button>
       <button class="tab" data-route="r2" aria-pressed="false">43 mi</button>
-      <button class="tab" data-route="r3" aria-pressed="false">62 mi</button>
-      <button class="tab" data-route="r4" aria-pressed="false">98 mi</button>
+      <button class="tab" data-route="r3" aria-pressed="false">70 mi</button>
+      <button class="tab" data-route="r4" aria-pressed="false">103 mi</button>
       <button class="tab" data-route="all" aria-pressed="false">All</button>
     </div>
     <div class="mapframe">
-      <svg id="map" viewBox="0 0 1000 700" role="img" aria-label="Schematic map of Walton County road cycling routes from Dune Allen Beach, showing County Road 30A along the Gulf, US 98, US 331 over Choctawhatchee Bay to Freeport, and State Road 20 east to Bruce and Ebro."></svg>
+      <svg id="map" viewBox="0 0 780 870" role="img" aria-label="Schematic map of Walton County road cycling routes from Dune Allen Beach, showing County Road 30A along the Gulf, US 98, US 331 over Choctawhatchee Bay to Freeport and DeFuniak Springs, US 90 east to Ponce de Leon, and State Road 20 east to Bruce."></svg>
     </div>
     <div class="maplegend">
       <span><i class="swatch" style="border-top-color:var(--accent)"></i>Selected route</span>
@@ -311,16 +311,16 @@
     <!-- ============ ROUTE 3 ============ -->
     <article class="route" id="r3">
       <div class="rhead">
-        <div class="rdist mono">62<small>mi</small></div>
-        <h2>Bay Bridge &amp; Black Creek</h2>
+        <div class="rdist mono">70<small>mi</small></div>
+        <h2>Bay Bridge to Bruce</h2>
       </div>
       <div class="rmeta">
-        <span class="chip">≈1,300 ft climbing</span>
-        <span class="chip">3h45–4h15</span>
+        <span class="chip">35 out · 35 back</span>
+        <span class="chip">≈1,400 ft climbing</span>
+        <span class="chip">4h15–4h45</span>
         <span class="chip warn">4.5 mi on US 98</span>
-        <span class="chip warn">2.3 mi exposed bridge</span>
       </div>
-      <p class="prose">The first route that leaves the beach. You cross Choctawhatchee Bay on the Clyde B. Wells Bridge — 2.3 miles of new four-lane deck with a paved shoulder on both sides, and the only sustained climb within fifty miles — into Freeport, then loop out onto Black Creek Road through pine and creek bottom where you'll see almost no cars at all. The cost of admission is roughly four and a half miles of US 98: divided, shouldered, and 55&nbsp;mph. It is genuinely fine at 7 a.m. and genuinely unpleasant at 10.</p>
+      <p class="prose">The first route that leaves the beach, and the flat one. You cross Choctawhatchee Bay on the Clyde B. Wells Bridge — 2.3 miles of four-lane deck with a paved shoulder on both sides, and the only sustained climb on this side of the county — into Freeport, then turn east onto State Road 20: a rural two-lane running through wetland and longleaf between Eglin's boundary and the Choctawhatchee River. Turn around at the store in Bruce and come back the same way. The cost of admission is four and a half miles of US 98, which is genuinely fine at 7 a.m. and genuinely unpleasant at 10.</p>
       <div class="rbody">
         <div>
           <table class="cue">
@@ -330,34 +330,36 @@
               <tr class="key"><td class="mi">6.5</td><td>Grayton Beach — <strong>left (north) on CR 283</strong></td></tr>
               <tr class="key"><td class="mi">9.1</td><td><strong>Right (east) on US 98.</strong> Shoulder the whole way; stay right of the rumble strip</td></tr>
               <tr class="key"><td class="mi">13.6</td><td><strong>Left (north) on US 331</strong></td></tr>
-              <tr class="key"><td class="mi">16.5</td><td>Clyde B. Wells Bridge begins — 2.3 mi over the bay. Crosswind is the whole story here</td></tr>
-              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, The Shoppes at Freeport</strong>, 16400 US-331 S. Stop. Ice, bottles, food</td></tr>
-              <tr><td class="mi">23.0</td><td>Cross SR 20, continue north on US 331 through Freeport</td></tr>
-              <tr class="key"><td class="mi">≈27</td><td><strong>Right on CR 3280 (Black Creek Road).</strong> Rural, rolling, near-empty</td></tr>
-              <tr class="key"><td class="mi">≈37</td><td><strong>Right (west) on SR 20</strong>, back toward Freeport</td></tr>
-              <tr class="fuel"><td class="mi">≈41</td><td>Freeport. Top off, then <strong>south on US 331</strong></td></tr>
-              <tr><td class="mi">≈49</td><td>Bridge southbound · <strong>≈54 right (west) on US 98</strong></td></tr>
-              <tr class="key"><td class="mi">≈58</td><td>Left (south) on CR 283 → 30A → west to the house</td></tr>
-              <tr class="key"><td class="mi">≈62</td><td>Home</td></tr>
+              <tr class="key"><td class="mi">16.5</td><td>Clyde B. Wells Bridge — 2.3 mi over the bay. Crosswind is the whole story</td></tr>
+              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, The Shoppes at Freeport</strong>, 16400 US-331 S</td></tr>
+              <tr class="key"><td class="mi">23.0</td><td><strong>Right (east) on SR 20.</strong> Rural two-lane, very little traffic</td></tr>
+              <tr class="key fuel"><td class="mi">≈35.5</td><td><strong>Bruce</strong> — SR 20 at SR 81. Bruce Store. <strong>Turn around</strong></td></tr>
+              <tr class="fuel"><td class="mi">≈49</td><td>Freeport. Publix again — ice in the bottles</td></tr>
+              <tr><td class="mi">≈57</td><td>Bridge southbound, then <strong>right (west) on US 98</strong></td></tr>
+              <tr class="key"><td class="mi">≈62</td><td>Left (south) on CR 283 → 30A → west to the house</td></tr>
+              <tr class="key"><td class="mi">≈71</td><td>Home</td></tr>
             </tbody>
           </table>
         </div>
         <div class="side">
           <div class="panel">
             <h3>Live map</h3>
-            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Publix+Super+Market+at+The+Shoppes+at+Freeport,+16400+US-331+S,+Freeport,+FL+32439&amp;waypoints=Grayton+Beach+State+Park,+FL%7CCounty+Highway+283+%26+US-98,+Santa+Rosa+Beach,+FL&amp;travelmode=driving">Coast to Freeport <span class="arrow">→</span></a>
-            <p style="margin-top:12px"><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=Publix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439&amp;destination=Freeport,+FL&amp;waypoints=4576+County+Highway+3280,+Freeport,+FL+32439&amp;travelmode=driving">The Black Creek loop <span class="arrow">→</span></a></p>
-            <p class="maphint">Two links because the loop is the part worth checking. Black Creek Road runs from US 331 across to SR 20; the ≈20-mile loop figure is my estimate, so read the real number off the link and adjust the day's total before you leave.</p>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Bruce,+FL&amp;waypoints=Grayton+Beach+State+Park,+FL%7CPublix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439&amp;travelmode=driving">Open the outbound 35 <span class="arrow">→</span></a>
+            <p class="maphint">Ride it, turn around, ride it back. Read the real mileage off the link — my SR 20 figure east of Freeport is an estimate.</p>
+          </div>
+          <div class="panel">
+            <h3>Dial it in</h3>
+            <p>Turn at the CR 3280 junction near Portland instead of Bruce and you have a clean 62. Push on past Bruce toward Ebro — a crossroads with a store, a motel and a home-cooking restaurant — and you have about 78.</p>
           </div>
           <div class="panel">
             <h3>The bridge</h3>
-            <p>US 331 is not a limited-access highway here, so it's legal to ride, and the rebuilt span carries shoulders in both directions. What it doesn't carry is shelter: 2.3 miles of open water with nothing to break a south wind. Check the forecast direction before you go — a headwind outbound means a tailwind home, which is the right way round for a hot day.</p>
+            <p>US 331 is not a limited-access highway here, so it's legal to ride, and the rebuilt span carries shoulders both ways. What it doesn't carry is shelter: 2.3 miles of open water with nothing to break a south wind, twice. Check the wind direction before you go — you want the headwind on the way out.</p>
           </div>
           <div class="panel">
             <h3>Fuel</h3>
             <ul class="stops">
-              <li><i class="pin"></i><div><div class="name">Publix, The Shoppes at Freeport</div><div class="det">16400 US-331 S — mile 22 outbound and mile 41 inbound, so you hit it twice. Deli, ice, restroom.</div></div></li>
-              <li><i class="pin"></i><div><div class="name">Exxon, 979 State Hwy 20 E</div><div class="det">Freeport, <span class="mono">24 hours</span>. Backup if you're through before Publix opens.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Publix, The Shoppes at Freeport</div><div class="det">16400 US-331 S — mile 22 out and mile 49 back. Deli, ice, restroom.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Bruce Store</div><div class="det">SR 20 at SR 81, the turnaround. Small; cold drinks and packaged food, take what you can get.</div></div></li>
             </ul>
           </div>
         </div>
@@ -367,52 +369,56 @@
     <!-- ============ ROUTE 4 ============ -->
     <article class="route" id="r4">
       <div class="rhead">
-        <div class="rdist mono">98<small>mi</small></div>
-        <h2>The Ebro Century</h2>
+        <div class="rdist mono">103<small>mi</small></div>
+        <h2>Ponce de Leon Springs</h2>
       </div>
       <div class="rmeta">
-        <span class="chip">≈2,000 ft climbing</span>
-        <span class="chip">6h15–7h00 rolling</span>
-        <span class="chip">3 supply stops</span>
+        <span class="chip">51.5 out · 51.5 back</span>
+        <span class="chip">≈3,000 ft climbing</span>
+        <span class="chip">7h30–8h00 with stops</span>
         <span class="chip warn">Needs a whole day</span>
       </div>
-      <p class="prose">Same start as Route 3, then straight on east down State Road 20 — a rural two-lane through wetland and longleaf between Eglin's eastern boundary and the Choctawhatchee River. Bruce is a crossroads with a store. Ebro is a crossroads with a store, a motel and a restaurant that does home cooking, and it makes an excellent place to sit down for twenty minutes at the far end of a hot ride. You come back the way you went, pass within a mile of the house at 78, and finish with a lap out to Seaside if you still want the round number.</p>
+      <p class="prose">Same start, then straight on north instead of east — and this is the one worth planning the week around. Past Freeport, US 331 climbs steadily out of the coastal flats into the red-clay ridges of north Walton County; DeFuniak Springs sits at <strong>259 feet</strong>, which is a genuine 250-foot net climb by Panhandle standards and the reason this route carries three times the elevation of anything on the coast. Twelve more miles east on US 90 puts you at Ponce de Leon, where a state park spring pushes out fourteen million gallons a day at a constant <strong>68&nbsp;°F</strong>. You turn around by getting in it. Then you ride home, net downhill, with the day's heat behind you.</p>
       <div class="rbody">
         <div>
           <table class="cue">
             <thead><tr><th>Mile</th><th>Cue</th></tr></thead>
             <tbody>
-              <tr><td class="mi">0.0</td><td>As Route 3: 30A → CR 283 → US 98 → US 331 north</td></tr>
-              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, Freeport.</strong> Fill everything — the next stop is 13 miles out</td></tr>
-              <tr class="key"><td class="mi">23.0</td><td><strong>Right (east) on SR 20</strong></td></tr>
-              <tr class="fuel"><td class="mi">≈35</td><td><strong>Bruce</strong> — SR 20 at SR 81. Bruce Store: cold drinks, and that's about it</td></tr>
-              <tr class="key"><td class="mi">≈39</td><td><strong>Ebro</strong> — SR 20 at SR 79. Center of the Crossroads: store and a sit-down restaurant. <strong>Turn around.</strong> Eat here</td></tr>
-              <tr class="fuel"><td class="mi">≈43</td><td>Bruce again — top off</td></tr>
-              <tr class="fuel"><td class="mi">≈56</td><td>Freeport. Publix. Ice in the bottles and down the back of the jersey</td></tr>
-              <tr><td class="mi">≈62</td><td>Bridge southbound · <strong>≈67 right (west) on US 98</strong> · ≈71 south on CR 283</td></tr>
-              <tr class="key"><td class="mi">≈78</td><td>Pass the house. <strong>Real decision point</strong> — stop here for a fine 78, or carry on east</td></tr>
-              <tr><td class="mi">≈88</td><td>Seaside. Turn around</td></tr>
-              <tr class="key"><td class="mi">≈98</td><td>Home</td></tr>
+              <tr><td class="mi">0.0</td><td>As Route 3: 30A → CR 283 → US 98 → US 331 north over the bridge</td></tr>
+              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, Freeport.</strong> Fill everything — next real stop is 17 miles</td></tr>
+              <tr class="key"><td class="mi">23.0</td><td>Cross SR 20, <strong>straight on north on US 331.</strong> Four-laned with shoulders from here up</td></tr>
+              <tr><td class="mi">≈30</td><td>The gradient starts. Nothing steep, just persistently up</td></tr>
+              <tr class="key"><td class="mi">≈37</td><td><strong>I-10 interchange.</strong> Cross the on- and off-ramps deliberately; this is the one busy junction</td></tr>
+              <tr class="key fuel"><td class="mi">≈39.5</td><td><strong>DeFuniak Springs</strong> (259 ft). <strong>Right (east) on US 90.</strong> Coffee, food, Lake DeFuniak</td></tr>
+              <tr class="key fuel"><td class="mi">≈51.5</td><td><strong>Ponce de Leon.</strong> Right on CR 181A, ½ mi to Ponce de Leon Springs State Park. <strong>Turn around.</strong> Get in the water</td></tr>
+              <tr class="fuel"><td class="mi">≈63.5</td><td>DeFuniak Springs again — the real meal stop, sit down</td></tr>
+              <tr class="fuel"><td class="mi">≈81</td><td>Publix, Freeport. Ice down the jersey</td></tr>
+              <tr><td class="mi">≈89</td><td>Bridge southbound, <strong>right (west) on US 98</strong> · ≈94 south on CR 283</td></tr>
+              <tr class="key"><td class="mi">≈103</td><td>Home</td></tr>
             </tbody>
           </table>
         </div>
         <div class="side">
           <div class="panel">
             <h3>Live map</h3>
-            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Ebro,+FL+32437&amp;waypoints=Grayton+Beach+State+Park,+FL%7CPublix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439%7CBruce,+FL&amp;travelmode=driving">Open outbound half <span class="arrow">→</span></a>
-            <p class="maphint">Roughly 39 miles out. Double it for the core ride, then add the 30A finish to taste.</p>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Ponce+de+Leon+Springs+State+Park,+2860+Ponce+de+Leon+Springs+Rd,+Ponce+de+Leon,+FL+32455&amp;waypoints=Publix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439%7CDeFuniak+Springs,+FL&amp;travelmode=driving">Open the outbound 51.5 <span class="arrow">→</span></a>
+            <p class="maphint">Check the elevation profile on this one, not just the line — it's the only route here with a profile worth looking at.</p>
+          </div>
+          <div class="panel">
+            <h3>The 79-mile version</h3>
+            <p>Turn around at DeFuniak Springs instead of carrying on to Ponce de Leon and you get <strong>≈79 miles</strong> with all of the climbing, the same two food stops, and three hours less exposure. If the week only has one long morning in it, ride this version — the extra 24 miles buy you a spring and not much else.</p>
           </div>
           <div class="panel">
             <h3>Read this before you commit</h3>
-            <p>At 16&nbsp;mph plus three stops this is a 7½-hour day. Leave at 6:30 and you're home around two in the afternoon, which is a whole working day gone — worth planning around rather than discovering at mile 60.</p>
-            <p>It's also the one route with real exposure: past Freeport there is nothing between the stores, no shade to speak of, and phone coverage on SR 20 is thin in places. Tell someone the plan and turn on live tracking.</p>
+            <p>At 16&nbsp;mph plus three real stops this is an eight-hour day. Leave at 6:15 and you're home around two, which is a working day gone — worth planning around rather than discovering at mile 60.</p>
+            <p>It's also the one route with real exposure. North of Freeport there's little shade, phone coverage thins out, and you're 40 miles from the house at the far end. Tell someone the plan and turn on live tracking.</p>
           </div>
           <div class="panel">
             <h3>Fuel</h3>
             <ul class="stops">
-              <li><i class="pin"></i><div><div class="name">Publix, Freeport</div><div class="det">Miles 22 and 56. Your two anchors — everything else out here is a gas station.</div></div></li>
-              <li><i class="pin"></i><div><div class="name">Bruce Store</div><div class="det">SR 20 at SR 81, miles ≈35 and ≈43. Small; take what you can get.</div></div></li>
-              <li><i class="pin"></i><div><div class="name">Center of the Crossroads, Ebro</div><div class="det">SR 20 at SR 79, mile ≈39. Store plus a home-cooking restaurant — this is the real meal stop, not a top-off.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Publix, Freeport</div><div class="det">Miles 22 and ≈81 — your bookends on both sides of the bay.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">DeFuniak Springs</div><div class="det">Miles ≈39.5 and ≈63.5. A proper town: coffee, restaurants, water. The historic district around the lake is worth the two-minute detour.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Ponce de Leon Springs State Park</div><div class="det">2860 Ponce de Leon Springs Rd, ½ mi south of US 90. Restrooms, water, and a 68&nbsp;°F swimming hole at the exact halfway point of a Florida century.</div></div></li>
             </ul>
           </div>
         </div>
@@ -499,13 +505,13 @@
       <tbody>
         <tr><td>Mon 7</td><td><strong>Arrive</strong></td><td>Travel day. Build the bike, load the routes, download offline maps while you have wifi.</td></tr>
         <tr><td>Tue 8</td><td><strong>33 mi</strong> — 30A End to End</td><td>Learn the road, find out what the humidity actually does to you, note where the water is.</td></tr>
-        <tr><td>Wed 9</td><td><strong>98 mi</strong> — The Ebro Century</td><td>Do the big one early in the week while you're fresh and while there's a recovery day behind it. Needs the lightest schedule of the retreat — pick that day now.</td></tr>
+        <tr><td>Wed 9</td><td><strong>103 mi</strong> — Ponce de Leon Springs</td><td>Do the big one early, while you're fresh and there's a recovery day behind it. It's an eight-hour day, so it needs the lightest day on the retreat calendar — choose that now, not on Tuesday night.</td></tr>
         <tr><td>Thu 10</td><td><strong>Off</strong> or an easy 20 on the Timpoochee</td><td>Spin to Seaside for coffee and back. Nothing more.</td></tr>
-        <tr><td>Fri 11</td><td><strong>43 mi</strong> — Coast + Two Spurs</td><td>The prettiest of the four and short enough to be back before the day starts.</td></tr>
+        <tr><td>Fri 11</td><td><strong>43 mi</strong> — Coast + Two Spurs</td><td>The prettiest of the four and short enough to be back before the workday starts.</td></tr>
         <tr><td>Sat 12</td><td><strong>Depart</strong></td><td>—</td></tr>
       </tbody>
     </table>
-    <p class="prose" style="margin-top:20px">If the century won't fit around the retreat, Route 3 at 62 is the honest substitute — it has the bridge, the bay and the empty rural miles, and it's back before lunch. And if Wednesday turns windy, swap it with Friday; a 20&nbsp;mph south wind over 2.3 miles of open bay deck is the one condition on this coast worth rescheduling for.</p>
+    <p class="prose" style="margin-top:20px">If the century won't fit around the retreat, the 79-mile version — same route, turn around at DeFuniak Springs — keeps all of the climbing and costs three hours less. Route 3 at 70 is the flat alternative if you'd rather spend the day rolling than climbing. And if Wednesday turns windy, swap it with Friday: a 20&nbsp;mph south wind over 2.3 miles of open bay deck, twice, is the one condition on this coast worth rescheduling for.</p>
   </section>
 
   <!-- ============ SOURCES ============ -->
@@ -519,13 +525,16 @@
       <p><a href="https://floridahikes.com/point-washington-30a-trail/" target="_blank" rel="noopener">Florida Hikes — Point Washington &amp; the 30A Trail</a></p>
       <p><a href="https://www.publix.com/locations/1351-the-shoppes-at-freeport" target="_blank" rel="noopener">Publix — The Shoppes at Freeport</a> · <a href="https://www.publix.com/locations/153-watercolor-crossings" target="_blank" rel="noopener">Publix — WaterColor Crossings</a></p>
       <p><a href="https://www.washcomall.com/ebro" target="_blank" rel="noopener">Washington County Chamber — Ebro</a></p>
+      <p><a href="https://www.floridastateparks.org/parks-and-trails/ponce-de-leon-springs-state-park" target="_blank" rel="noopener">Ponce de Leon Springs State Park</a></p>
+      <p><a href="https://www.aaroads.com/guides/us-331-fl" target="_blank" rel="noopener">AARoads — US 331 in Florida (four-laning north of Freeport)</a></p>
+      <p><a href="https://en.wikivoyage.org/wiki/DeFuniak_Springs" target="_blank" rel="noopener">DeFuniak Springs travel guide</a></p>
       <p><a href="https://www.enr.com/articles/43299-highwaysbridges-best-project-choctawhatchee-bay-bridge-us-331" target="_blank" rel="noopener">ENR — Choctawhatchee Bay Bridge (US 331)</a></p>
       <p><a href="https://support.ridewithgps.com/hc/en-us/articles/14156247374747-Battery-Saving-Tips" target="_blank" rel="noopener">Ride with GPS — battery saving tips</a> · <a href="https://ridewithgps.com/app" target="_blank" rel="noopener">offline maps &amp; navigation</a></p>
       <p><a href="http://flbikelaw.org/2010/07/headsets/" target="_blank" rel="noopener">Florida Bicycle Law — headsets (FS 316.304)</a></p>
       <p><a href="https://www.nhc.noaa.gov/gtwo.php" target="_blank" rel="noopener">NHC Graphical Tropical Weather Outlook</a> · <a href="https://www.floridadisaster.org/weather/" target="_blank" rel="noopener">Florida Disaster weather</a></p>
       <p><a href="https://www.bigdaddysbikeshop.com/" target="_blank" rel="noopener">Big Daddy's Bike Shop</a></p>
     </div>
-    <footer class="foot">Mileages marked ≈ are estimates from mapped road geometry and should be confirmed against the live map links — particularly the Black Creek Road leg on Route 3 and everything east of Freeport on Route 4. Everything else is measured off known intersections.</footer>
+    <footer class="foot">Every route here is ridden out and back from the door — nothing needs a lift, a shuttle or a second car. Mileages marked ≈ are estimates built from mapped road geometry and should be confirmed against the live map links, particularly the SR 20 leg east of Freeport on Route 3. Anchored distances: Freeport is 15 road miles from Santa Rosa Beach, the bay bridge is 2.3, Freeport to DeFuniak Springs is 17, and DeFuniak Springs to Ponce de Leon is 12.</footer>
   </section>
 </div>
 
@@ -534,7 +543,7 @@
   "use strict";
 
   // ---- projection -------------------------------------------------------
-  var LON0 = -86.37, LAT0 = 30.575, K = 0.8625, S = 2000, PX = 40, PY = 25;
+  var LON0 = -86.42, LAT0 = 30.76, K = 0.8625, S = 1650, PX = 30, PY = 30;
   function px(lon) { return (lon - LON0) * K * S + PX; }
   function py(lat) { return (LAT0 - lat) * S + PY; }
   function line(pts) {
@@ -568,58 +577,66 @@
     cr283:[[30.334,-86.208],[30.352,-86.205],[30.370,-86.202],[30.382,-86.201]],
     cr395:[[30.316,-86.123],[30.335,-86.125],[30.348,-86.126],[30.357,-86.128],[30.376,-86.121]],
     us331:[[30.382,-86.181],[30.392,-86.166],[30.405,-86.157],[30.440,-86.147],
-           [30.470,-86.140],[30.500,-86.133],[30.522,-86.130],[30.545,-86.128]],
+           [30.470,-86.140],[30.500,-86.133],[30.545,-86.128],[30.600,-86.122],
+           [30.660,-86.118],[30.700,-86.116],[30.721,-86.115]],
+    us90: [[30.721,-86.115],[30.721,-86.060],[30.722,-86.000],[30.722,-85.930]],
     sr20: [[30.500,-86.133],[30.492,-86.080],[30.478,-86.030],[30.468,-85.980],
-           [30.458,-85.939],[30.446,-85.900],[30.438,-85.879]],
-    cr3280:[[30.545,-86.128],[30.532,-86.090],[30.510,-86.055],[30.487,-86.032],[30.478,-86.030]]
+           [30.458,-85.939],[30.450,-85.905]],
+    sr81: [[30.458,-85.939],[30.520,-85.945],[30.590,-85.950],[30.660,-85.940],[30.722,-85.930]],
+    cr3280:[[30.545,-86.128],[30.532,-86.090],[30.510,-86.055],[30.487,-86.032],[30.478,-86.030]],
+    i10:  [[30.706,-86.30],[30.706,-86.116],[30.700,-85.98],[30.694,-85.86]]
   };
 
-  // segments each route uses, with the sub-range of each road
+  // each route's legs, as sub-ranges of the roads above (ridden out and back)
   var ROUTES = {
     r1: [["r30a", 2, 12]],
     r2: [["r30a", 2, 12], ["cr283", 0, 3], ["cr395", 0, 3]],
-    r3: [["r30a", 2, 5], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 7],
-         ["cr3280", 0, 4], ["sr20", 0, 2]],
-    r4: [["r30a", 2, 7], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 5],
-         ["sr20", 0, 6]]
+    r3: [["r30a", 2, 5], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 5], ["sr20", 0, 4]],
+    r4: [["r30a", 2, 5], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 10], ["us90", 0, 3]]
   };
 
   var TOWNS = [
-    { n:"Dune Allen",     lat:30.366, lon:-86.286, dx:-6,  dy:16, a:"end" },
-    { n:"Grayton Beach",  lat:30.334, lon:-86.208, dx:0,   dy:19, a:"middle" },
-    { n:"Seaside",        lat:30.320, lon:-86.145, dx:0,   dy:19, a:"middle" },
-    { n:"Seagrove",       lat:30.316, lon:-86.123, dx:14,  dy:6,  a:"start" },
-    { n:"Alys",           lat:30.286, lon:-86.032, dx:-4,  dy:17, a:"middle" },
-    { n:"Inlet Beach",    lat:30.277, lon:-85.993, dx:8,   dy:14, a:"start" },
-    { n:"Point Washington",lat:30.348,lon:-86.126, dx:9,   dy:4,  a:"start" },
-    { n:"Santa Rosa Beach",lat:30.383,lon:-86.253, dx:0,  dy:-11, a:"middle" },
-    { n:"Freeport",       lat:30.500, lon:-86.133, dx:12,  dy:-6, a:"start" },
-    { n:"Bruce",          lat:30.458, lon:-85.939, dx:0,   dy:-11,a:"middle" },
-    { n:"Ebro",           lat:30.438, lon:-85.879, dx:-4,  dy:-11,a:"end" }
+    { n:"Dune Allen",      lat:30.366, lon:-86.286, dx:-6, dy:16, a:"end" },
+    { n:"Grayton Beach",   lat:30.334, lon:-86.208, dx:-6, dy:17, a:"end" },
+    { n:"Seaside",         lat:30.320, lon:-86.145, dx:-4, dy:18, a:"end" },
+    { n:"Seagrove",        lat:30.316, lon:-86.123, dx:13, dy:11, a:"start" },
+    { n:"Alys",            lat:30.286, lon:-86.032, dx:-4, dy:17, a:"middle" },
+    { n:"Inlet Beach",     lat:30.277, lon:-85.993, dx:8,  dy:14, a:"start" },
+    { n:"Point Washington",lat:30.348, lon:-86.126, dx:10, dy:4,  a:"start" },
+    { n:"Santa Rosa Beach",lat:30.383, lon:-86.253, dx:0,  dy:-11,a:"middle" },
+    { n:"Freeport",        lat:30.500, lon:-86.133, dx:13, dy:-6, a:"start" },
+    { n:"Bruce",           lat:30.458, lon:-85.939, dx:0,  dy:-11,a:"middle" },
+    { n:"Portland",        lat:30.478, lon:-86.030, dx:0,  dy:-10,a:"middle" }
   ];
 
   var STOPS = [
-    { n:"Publix · WaterColor", lat:30.322, lon:-86.128, r:["r1","r2","r4"], dx:12, dy:-6, a:"start" },
-    { n:"Eden Gardens",        lat:30.357, lon:-86.128, r:["r2"],           dx:11, dy:4,  a:"start" },
-    { n:"Publix · Freeport",   lat:30.482, lon:-86.135, r:["r3","r4"],      dx:-12,dy:4,  a:"end" },
-    { n:"Bruce Store",         lat:30.458, lon:-85.939, r:["r4"],           dx:0,  dy:26, a:"middle" },
-    { n:"Crossroads · Ebro",   lat:30.438, lon:-85.879, r:["r4"],           dx:-6, dy:48, a:"end" }
+    { n:"Publix · WaterColor",   lat:30.324, lon:-86.128, r:["r1","r2"],      dx:12, dy:-8, a:"start" },
+    { n:"Eden Gardens",          lat:30.357, lon:-86.128, r:["r2"],           dx:11, dy:-8, a:"start" },
+    { n:"Publix · Freeport",     lat:30.482, lon:-86.135, r:["r3","r4"],      dx:-12,dy:4,  a:"end" },
+    { n:"Bruce Store",           lat:30.458, lon:-85.939, r:["r3"],           dx:0,  dy:24, a:"middle" },
+    { n:"DeFuniak Springs",      lat:30.721, lon:-86.115, r:["r4"],           dx:-12,dy:-9, a:"end" },
+    { n:"Ponce de Leon Springs", lat:30.716, lon:-85.936, r:["r4"],           dx:-4, dy:46, a:"end" }
   ];
 
   var LABELS = [
-    { t:"GULF OF MEXICO", lat:30.268, lon:-86.200, cls:"water-label", size:15, sp:"0.22em" },
-    { t:"CHOCTAWHATCHEE BAY", lat:30.452, lon:-86.290, cls:"water-label", size:12, sp:"0.16em" },
-    { t:"CR 30A", lat:30.306, lon:-86.082, cls:"road-label", size:11, sp:"0.1em", rot:-18 },
-    { t:"US 98", lat:30.401, lon:-86.318, cls:"road-label", size:11, sp:"0.1em" },
-    { t:"US 331", lat:30.411, lon:-86.152, cls:"road-label", size:11, sp:"0.1em", rot:-76 },
-    { t:"SR 20", lat:30.487, lon:-86.055, cls:"road-label", size:11, sp:"0.1em", rot:14 },
-    { t:"CR 3280", lat:30.523, lon:-86.078, cls:"road-label", size:10, sp:"0.08em", rot:32 },
-    { t:"CR 283", lat:30.358, lon:-86.212, cls:"road-label", size:10, sp:"0.08em", rot:-84 },
-    { t:"CR 395", lat:30.340, lon:-86.133, cls:"road-label", size:10, sp:"0.08em", rot:-84 }
+    { t:"GULF OF MEXICO",     lat:30.288, lon:-86.262, size:13, sp:"0.2em" },
+    { t:"CHOCTAWHATCHEE BAY", lat:30.455, lon:-86.305, size:10, sp:"0.14em" },
+    { t:"CR 30A",  lat:30.296, lon:-86.052, size:10, sp:"0.08em", rot:-20 },
+    { t:"US 98",   lat:30.401, lon:-86.318, size:10, sp:"0.08em" },
+    { t:"US 331",  lat:30.425, lon:-86.152, size:10, sp:"0.08em", rot:-78 },
+    { t:"US 331",  lat:30.610, lon:-86.122, size:10, sp:"0.08em", rot:-85 },
+    { t:"US 90",   lat:30.729, lon:-86.020, size:10, sp:"0.08em" },
+    { t:"SR 20",   lat:30.489, lon:-86.055, size:10, sp:"0.08em", rot:14 },
+    { t:"SR 81",   lat:30.590, lon:-85.950, size:10, sp:"0.08em", rot:-86 },
+    { t:"CR 283",  lat:30.358, lon:-86.213, size:9,  sp:"0.06em", rot:-85 },
+    { t:"CR 395",  lat:30.340, lon:-86.133, size:9,  sp:"0.06em", rot:-85 },
+    { t:"CR 3280", lat:30.523, lon:-86.078, size:9,  sp:"0.06em", rot:32 },
+    { t:"EGLIN AIR FORCE BASE", lat:30.600, lon:-86.305, size:9, sp:"0.14em" },
+    { t:"(no through roads)",   lat:30.588, lon:-86.305, size:8.5, sp:"0.04em" }
   ];
 
   var HOUSE = { lat:30.366, lon:-86.286 };
-  var BRIDGE = { lat:30.437, lon:-86.147 };
+  var BRIDGE = { lat:30.437, lon:-86.152 };
 
   // ---- build svg --------------------------------------------------------
   var NS = "http://www.w3.org/2000/svg";
@@ -634,9 +651,9 @@
     var t = el("text", {
       x: x, y: y,
       "text-anchor": opts.a || "middle",
-      "font-size": opts.size || 12,
+      "font-size": opts.size || 11,
       "letter-spacing": opts.sp || "0.02em",
-      "font-family": opts.mono ? "'Overpass Mono', monospace" : "'Overpass', sans-serif",
+      "font-family": "'Overpass', sans-serif",
       "font-weight": opts.w || 600,
       fill: opts.fill,
       transform: opts.rot ? "rotate(" + opts.rot + " " + x + " " + y + ")" : null
@@ -645,78 +662,66 @@
     return t;
   }
 
-  // land base
-  svg.appendChild(el("rect", { x:0, y:0, width:1000, height:700, fill:"var(--land)" }));
+  svg.appendChild(el("rect", { x:0, y:0, width:780, height:870, fill:"var(--land)" }));
 
-  // gulf: coastline down to bottom edge
-  var gulfD = line(COAST) + " L1010 700 L-20 700 Z";
-  svg.appendChild(el("path", { d: gulfD, fill:"var(--gulf)" }));
-
-  // a thin sand strip just inland of the coast reads as beach
-  svg.appendChild(el("path", { d: line(COAST), fill:"none", stroke:"var(--sand)", "stroke-width":7, "stroke-linejoin":"round" }));
+  // gulf
+  svg.appendChild(el("path", { d: line(COAST) + " L800 880 L-20 880 Z", fill:"var(--gulf)" }));
+  svg.appendChild(el("path", { d: line(COAST), fill:"none", stroke:"var(--sand)", "stroke-width":6, "stroke-linejoin":"round" }));
 
   // bay
-  var bayD = line(BAY_N) + " " + line(BAY_S).replace(/^M/, "L") + " Z";
-  svg.appendChild(el("path", { d: bayD, fill:"var(--water)" }));
+  svg.appendChild(el("path", { d: line(BAY_N) + " " + line(BAY_S).replace(/^M/, "L") + " Z", fill:"var(--water)" }));
 
-  // roads (base network)
-  var order = ["us98","r30a","us331","sr20","cr3280","cr283","cr395","cr393"];
-  var baseGroup = el("g", {});
-  order.forEach(function (key) {
-    baseGroup.appendChild(el("path", {
+  // interstate, drawn apart from the ridable network
+  svg.appendChild(el("path", {
+    d: line(ROADS.i10), fill:"none", stroke:"var(--line-2)", "stroke-width":2.4,
+    "stroke-dasharray":"7 5", "stroke-linecap":"round"
+  }));
+  svg.appendChild(text("I-10", px(-86.230), py(30.706) - 7, { size:9.5, sp:"0.08em", w:600, fill:"var(--ink-3)" }));
+
+  // base road network
+  ["us98","r30a","us331","us90","sr20","sr81","cr3280","cr283","cr395","cr393"].forEach(function (key) {
+    svg.appendChild(el("path", {
       d: line(ROADS[key]), fill:"none", stroke:"var(--line-2)",
-      "stroke-width": (key === "us98" || key === "us331" || key === "sr20") ? 2.6 : 1.8,
+      "stroke-width": (key === "us98" || key === "us331" || key === "sr20" || key === "us90") ? 2.4 : 1.6,
       "stroke-linecap":"round", "stroke-linejoin":"round"
     }));
   });
-  svg.appendChild(baseGroup);
 
-  // active route layer
   var routeLayer = el("g", {});
   svg.appendChild(routeLayer);
 
-  // water + road labels
   LABELS.forEach(function (l) {
     svg.appendChild(text(l.t, px(l.lon), py(l.lat), {
-      size: l.size, sp: l.sp, rot: l.rot, w: 600,
-      fill: l.cls === "water-label" ? "var(--ink-3)" : "var(--ink-3)"
+      size:l.size, sp:l.sp, rot:l.rot, w:600, fill:"var(--ink-3)"
     }));
   });
 
-  // bridge marker
-  svg.appendChild(text("Clyde B. Wells Bridge · 2.3 mi", px(BRIDGE.lon) - 14, py(BRIDGE.lat), {
-    a:"end", size:10.5, sp:"0.04em", w:400, fill:"var(--ink-3)"
+  svg.appendChild(text("Clyde B. Wells Bridge · 2.3 mi", px(BRIDGE.lon) - 13, py(BRIDGE.lat), {
+    a:"end", size:9.5, sp:"0.03em", w:400, fill:"var(--ink-3)"
   }));
 
-  // towns
   TOWNS.forEach(function (t) {
     var x = px(t.lon), y = py(t.lat);
-    svg.appendChild(el("circle", { cx:x, cy:y, r:2.6, fill:"var(--ink-3)" }));
-    svg.appendChild(text(t.n, x + t.dx, y + t.dy, { a:t.a, size:11.5, w:400, fill:"var(--ink-2)" }));
+    svg.appendChild(el("circle", { cx:x, cy:y, r:2.4, fill:"var(--ink-3)" }));
+    svg.appendChild(text(t.n, x + t.dx, y + t.dy, { a:t.a, size:10.5, w:400, fill:"var(--ink-2)" }));
   });
 
-  // stop markers layer (redrawn per route)
   var stopLayer = el("g", {});
   svg.appendChild(stopLayer);
 
-  // the house
   var hx = px(HOUSE.lon), hy = py(HOUSE.lat);
-  svg.appendChild(el("circle", { cx:hx, cy:hy, r:8.5, fill:"none", stroke:"var(--accent)", "stroke-width":1.6 }));
-  svg.appendChild(el("circle", { cx:hx, cy:hy, r:4, fill:"var(--accent)" }));
-  svg.appendChild(text("THE HOUSE", hx - 13, hy - 12, { a:"end", size:10.5, sp:"0.14em", w:600, fill:"var(--accent-ink)" }));
+  svg.appendChild(el("circle", { cx:hx, cy:hy, r:7.5, fill:"none", stroke:"var(--accent)", "stroke-width":1.5 }));
+  svg.appendChild(el("circle", { cx:hx, cy:hy, r:3.4, fill:"var(--accent)" }));
+  svg.appendChild(text("THE HOUSE", hx - 12, hy - 11, { a:"end", size:9.5, sp:"0.13em", w:600, fill:"var(--accent-ink)" }));
 
   // ---- route drawing ----------------------------------------------------
   function drawRoute(key) {
-    var segs = ROUTES[key], i;
-    for (i = 0; i < segs.length; i++) {
-      var name = segs[i][0], a = segs[i][1], b = segs[i][2];
-      var pts = ROADS[name].slice(a, b + 1);
+    ROUTES[key].forEach(function (seg) {
       routeLayer.appendChild(el("path", {
-        d: line(pts), fill:"none", stroke:"var(--accent)",
-        "stroke-width":4.5, "stroke-linecap":"round", "stroke-linejoin":"round",
-        "stroke-opacity": 0.92
+        d: line(ROADS[seg[0]].slice(seg[1], seg[2] + 1)), fill:"none", stroke:"var(--accent)",
+        "stroke-width":4, "stroke-linecap":"round", "stroke-linejoin":"round", "stroke-opacity":0.92
       }));
-    }
+    });
   }
 
   function render(sel) {
@@ -726,12 +731,11 @@
     var keys = sel === "all" ? ["r1","r2","r3","r4"] : [sel];
     keys.forEach(drawRoute);
 
-    STOPS.forEach(function (s) {
-      var show = keys.some(function (k) { return s.r.indexOf(k) !== -1; });
-      if (!show) { return; }
-      var x = px(s.lon), y = py(s.lat);
-      stopLayer.appendChild(el("circle", { cx:x, cy:y, r:5.5, fill:"var(--warn)", stroke:"var(--surface)", "stroke-width":1.6 }));
-      stopLayer.appendChild(text(s.n, x + s.dx, y + s.dy, { a:s.a, size:10.5, w:600, fill:"var(--warn)" }));
+    STOPS.forEach(function (st) {
+      if (!keys.some(function (k) { return st.r.indexOf(k) !== -1; })) { return; }
+      var x = px(st.lon), y = py(st.lat);
+      stopLayer.appendChild(el("circle", { cx:x, cy:y, r:5, fill:"var(--warn)", stroke:"var(--surface)", "stroke-width":1.5 }));
+      stopLayer.appendChild(text(st.n, x + st.dx, y + st.dy, { a:st.a, size:10, w:600, fill:"var(--warn)" }));
     });
   }
 
@@ -745,7 +749,6 @@
     });
   });
 
-  // clicking a route heading syncs the map
   ["r1","r2","r3","r4"].forEach(function (id) {
     var link = document.querySelector('.glance a[href="#' + id + '"]');
     if (!link) { return; }
