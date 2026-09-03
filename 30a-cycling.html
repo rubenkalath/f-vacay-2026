@@ -1,0 +1,758 @@
+<title>30A Ride Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;800&family=Overpass+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+  :root {
+    --ground:#F3F5F1; --surface:#FFFFFF; --surface-2:#EAEEE8;
+    --ink:#14211D; --ink-2:#4C5C55; --ink-3:#75857D;
+    --line:#D2DAD2; --line-2:#BCC7BD;
+    --accent:#0A7C83; --accent-ink:#075B60; --accent-soft:#DCEDEC;
+    --warn:#A9491A; --warn-soft:#F3E2D6;
+    --sand:#E9E1CC; --land:#EDF0E9; --water:#CBE0E3; --gulf:#B9D9DD;
+    --shadow:0 1px 2px rgba(20,33,29,.06), 0 6px 20px rgba(20,33,29,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#0C1412; --surface:#131E1B; --surface-2:#1A2622;
+      --ink:#E8EEE9; --ink-2:#9DAEA7; --ink-3:#77877F;
+      --line:#293833; --line-2:#374841;
+      --accent:#48C4C9; --accent-ink:#8FE0E3; --accent-soft:#10302F;
+      --warn:#E58A50; --warn-soft:#2E211A;
+      --sand:#212C25; --land:#18231F; --water:#15282B; --gulf:#112327;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#0C1412; --surface:#131E1B; --surface-2:#1A2622;
+    --ink:#E8EEE9; --ink-2:#9DAEA7; --ink-3:#77877F;
+    --line:#293833; --line-2:#374841;
+    --accent:#48C4C9; --accent-ink:#8FE0E3; --accent-soft:#10302F;
+    --warn:#E58A50; --warn-soft:#2E211A;
+    --sand:#212C25; --land:#18231F; --water:#15282B; --gulf:#112327;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+  }
+
+  *,*::before,*::after { box-sizing:border-box; }
+  body {
+    background:var(--ground); color:var(--ink);
+    font-family:"Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size:17px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px 96px; }
+  .prose { max-width:68ch; }
+
+  h1,h2,h3,.ui { font-family:"Overpass", "Helvetica Neue", Arial, sans-serif; }
+  h1 { font-size:clamp(38px,6.4vw,68px); line-height:.96; font-weight:800; letter-spacing:-.028em; margin:0; text-wrap:balance; }
+  h2 { font-size:clamp(23px,3vw,30px); font-weight:800; letter-spacing:-.018em; line-height:1.12; margin:0; text-wrap:balance; }
+  h3 { font-size:15px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); margin:0; }
+  p { margin:0; }
+  a { color:var(--accent-ink); text-underline-offset:3px; text-decoration-thickness:1px; }
+  a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+  .mono { font-family:"Overpass Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric:tabular-nums; }
+
+  .eyebrow {
+    font-family:"Overpass", sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--accent-ink);
+  }
+
+  /* ---------- masthead ---------- */
+  header.masthead { padding:56px 0 34px; display:flex; flex-direction:column; gap:20px; }
+  .lede { font-size:19px; color:var(--ink-2); max-width:60ch; }
+  .lede strong { color:var(--ink); font-weight:600; }
+  .rule { height:1px; background:var(--line); border:0; margin:0; }
+
+  .glance { display:flex; flex-wrap:wrap; gap:10px; }
+  .glance a {
+    display:flex; align-items:baseline; gap:9px; text-decoration:none;
+    background:var(--surface); border:1px solid var(--line); border-radius:3px;
+    padding:9px 14px; color:var(--ink); transition:border-color .15s, background .15s;
+  }
+  .glance a:hover { border-color:var(--accent); background:var(--accent-soft); }
+  .glance .n { font-family:"Overpass Mono", monospace; font-weight:600; font-size:17px; color:var(--accent-ink); }
+  .glance .l { font-family:"Overpass", sans-serif; font-size:13.5px; color:var(--ink-2); }
+
+  /* ---------- map ---------- */
+  .mapblock { margin:36px 0 8px; }
+  .mapbar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:14px; }
+  .mapbar .lbl { font-family:"Overpass",sans-serif; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-right:6px; }
+  .tab {
+    font-family:"Overpass Mono", monospace; font-size:13px; font-weight:600;
+    background:var(--surface); color:var(--ink-2); border:1px solid var(--line);
+    border-radius:3px; padding:7px 12px; cursor:pointer; transition:all .15s;
+  }
+  .tab:hover { border-color:var(--line-2); color:var(--ink); }
+  .tab[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#FFFFFF; }
+  :root[data-theme="dark"] .tab[aria-pressed="true"] { color:#08201F; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tab[aria-pressed="true"] { color:#08201F; } }
+
+  .mapframe { background:var(--surface); border:1px solid var(--line); border-radius:4px; overflow-x:auto; box-shadow:var(--shadow); }
+  .mapframe svg { display:block; width:100%; min-width:640px; height:auto; }
+  .maplegend {
+    display:flex; flex-wrap:wrap; gap:18px 26px; margin-top:12px;
+    font-family:"Overpass",sans-serif; font-size:13px; color:var(--ink-2);
+  }
+  .maplegend span { display:inline-flex; align-items:center; gap:8px; }
+  .swatch { width:22px; height:0; border-top-width:3px; border-top-style:solid; }
+  .dot { width:9px; height:9px; border-radius:50%; }
+  .caveat { margin-top:10px; font-size:14px; color:var(--ink-3); max-width:70ch; }
+
+  /* ---------- routes ---------- */
+  .routes { display:flex; flex-direction:column; gap:0; margin-top:60px; }
+  .route { border-top:1px solid var(--line); padding:38px 0 44px; scroll-margin-top:16px; }
+  .rhead { display:flex; flex-wrap:wrap; align-items:flex-end; gap:6px 24px; margin-bottom:8px; }
+  .rdist { font-family:"Overpass Mono",monospace; font-size:44px; font-weight:600; line-height:.9; color:var(--accent-ink); letter-spacing:-.03em; }
+  .rdist small { font-size:16px; font-weight:400; letter-spacing:0; color:var(--ink-3); margin-left:3px; }
+  .rmeta { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 20px; }
+  .chip {
+    font-family:"Overpass",sans-serif; font-size:12.5px; letter-spacing:.03em;
+    background:var(--surface-2); color:var(--ink-2); border-radius:2px; padding:4px 10px;
+  }
+  .chip.warn { background:var(--warn-soft); color:var(--warn); }
+  .rbody { display:grid; grid-template-columns:1.05fr .95fr; gap:36px; margin-top:26px; align-items:start; }
+  @media (max-width:840px) { .rbody { grid-template-columns:1fr; gap:28px; } }
+
+  table.cue { width:100%; border-collapse:collapse; font-family:"Overpass Mono",monospace; font-size:13.5px; line-height:1.45; }
+  table.cue th {
+    text-align:left; font-weight:600; font-size:11px; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--ink-3); padding:0 0 8px; border-bottom:1px solid var(--line);
+  }
+  table.cue td { padding:9px 0; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink-2); }
+  table.cue td.mi { width:58px; color:var(--ink); white-space:nowrap; padding-right:14px; }
+  table.cue tr.key td { color:var(--ink); }
+  table.cue tr.key td.mi { color:var(--accent-ink); font-weight:600; }
+  table.cue tr.fuel td.mi::after { content:"●"; color:var(--warn); font-size:9px; margin-left:5px; vertical-align:middle; }
+
+  .side { display:flex; flex-direction:column; gap:22px; }
+  .panel { background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:20px 22px; }
+  .panel h3 { margin-bottom:12px; }
+  .panel p + p { margin-top:10px; }
+  .stops { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  .stops li { display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline; }
+  .stops .pin { width:8px; height:8px; border-radius:50%; background:var(--warn); transform:translateY(-2px); }
+  .stops .name { font-family:"Overpass",sans-serif; font-weight:600; font-size:15px; }
+  .stops .det { font-size:14.5px; color:var(--ink-2); line-height:1.5; }
+  .stops .det .mono { font-size:13px; }
+
+  .maplink {
+    display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+    font-family:"Overpass",sans-serif; font-size:14px; font-weight:600;
+    background:var(--accent); color:#FFFFFF; padding:11px 16px; border-radius:3px;
+    transition:opacity .15s;
+  }
+  :root[data-theme="dark"] .maplink { color:#08201F; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .maplink { color:#08201F; } }
+  .maplink:hover { opacity:.86; }
+  .maplink .arrow { font-family:"Overpass Mono",monospace; }
+  .maphint { font-size:13.5px; color:var(--ink-3); margin-top:9px; }
+
+  /* ---------- closing sections ---------- */
+  section.block { border-top:1px solid var(--line); padding:44px 0 8px; }
+  .block h2 { margin-bottom:18px; }
+  .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px; margin-top:26px; }
+  .cols .panel p { font-size:15.5px; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:9px 16px; font-size:15px; margin-top:14px; }
+  .kv dt { font-family:"Overpass Mono",monospace; font-size:13px; color:var(--accent-ink); white-space:nowrap; }
+  .kv dd { margin:0; color:var(--ink-2); }
+  .plan { width:100%; border-collapse:collapse; margin-top:20px; font-size:15px; }
+  .plan th { text-align:left; font-family:"Overpass",sans-serif; font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); padding:0 14px 9px 0; border-bottom:1px solid var(--line); }
+  .plan td { padding:11px 14px 11px 0; border-bottom:1px solid var(--line); color:var(--ink-2); vertical-align:top; }
+  .plan td:first-child { font-family:"Overpass Mono",monospace; font-size:13.5px; color:var(--ink); white-space:nowrap; }
+  .plan td strong { color:var(--ink); font-weight:600; }
+  .sources { font-size:14px; color:var(--ink-2); columns:2; column-gap:34px; margin-top:16px; }
+  @media (max-width:680px) { .sources { columns:1; } }
+  .sources p { break-inside:avoid; margin-bottom:9px; }
+  footer.foot { border-top:1px solid var(--line); margin-top:44px; padding-top:20px; font-size:13.5px; color:var(--ink-3); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Mon 7 – Sat 12 September · Dune Allen Beach, Walton County, Florida</div>
+    <h1>30A Ride Book</h1>
+    <p class="lede">Four road routes out of <strong>5664 W County Hwy 30A</strong>, built around the one hard constraint of this coastline: there is exactly <strong>one bridge</strong> across Choctawhatchee Bay, and everything longer than a lap of 30A goes over it. Sunrise is <strong>6:27&nbsp;a.m.</strong>; by ten o'clock the heat index is the story.</p>
+    <div class="glance">
+      <a href="#r1"><span class="n mono">33</span><span class="l">30A End to End</span></a>
+      <a href="#r2"><span class="n mono">43</span><span class="l">Coast + Two Spurs</span></a>
+      <a href="#r3"><span class="n mono">62</span><span class="l">Bay Bridge &amp; Black Creek</span></a>
+      <a href="#r4"><span class="n mono">98</span><span class="l">The Ebro Century</span></a>
+    </div>
+  </header>
+
+  <div class="mapblock">
+    <div class="mapbar">
+      <span class="lbl">Show route</span>
+      <button class="tab" data-route="r1" aria-pressed="true">33 mi</button>
+      <button class="tab" data-route="r2" aria-pressed="false">43 mi</button>
+      <button class="tab" data-route="r3" aria-pressed="false">62 mi</button>
+      <button class="tab" data-route="r4" aria-pressed="false">98 mi</button>
+      <button class="tab" data-route="all" aria-pressed="false">All</button>
+    </div>
+    <div class="mapframe">
+      <svg id="map" viewBox="0 0 1000 700" role="img" aria-label="Schematic map of Walton County road cycling routes from Dune Allen Beach, showing County Road 30A along the Gulf, US 98, US 331 over Choctawhatchee Bay to Freeport, and State Road 20 east to Bruce and Ebro."></svg>
+    </div>
+    <div class="maplegend">
+      <span><i class="swatch" style="border-top-color:var(--accent)"></i>Selected route</span>
+      <span><i class="swatch" style="border-top-color:var(--line-2)"></i>Other roads</span>
+      <span><i class="dot" style="background:var(--warn)"></i>Food &amp; water</span>
+      <span><i class="dot" style="background:var(--accent-ink)"></i>The house</span>
+    </div>
+    <p class="caveat">Drawn from real coordinates, but this is a schematic — shape and sequence only. Each route below carries a live Google Maps link with the actual road geometry and mileage; open that one before you commit to a turn.</p>
+  </div>
+
+  <div class="routes">
+
+    <!-- ============ ROUTE 1 ============ -->
+    <article class="route" id="r1">
+      <div class="rhead">
+        <div class="rdist mono">33<small>mi</small></div>
+        <h2>30A End to End</h2>
+      </div>
+      <div class="rmeta">
+        <span class="chip">≈600 ft climbing</span>
+        <span class="chip">Out &amp; back</span>
+        <span class="chip">2h00–2h20</span>
+        <span class="chip">Zero navigation</span>
+      </div>
+      <p class="prose">County Road 30A runs 18.6 miles from US 98 in the west to US 98 at Inlet Beach in the east, and your driveway sits about two miles in from the west end. Ride to the far end and come back and you have a legitimate morning: fifteen beach towns, a dozen coastal dune lakes, 25–35&nbsp;mph posted limits, and one genuine climb at Blue Mountain Beach. It is also the only route here where you can put the phone away entirely — you turn left out of the driveway and go straight until the road ends.</p>
+      <div class="rbody">
+        <div>
+          <table class="cue">
+            <thead><tr><th>Mile</th><th>Cue</th></tr></thead>
+            <tbody>
+              <tr class="key"><td class="mi">0.0</td><td>Left out of the driveway — east on W County Hwy 30A</td></tr>
+              <tr><td class="mi">2.0</td><td>Gulf Place / CR 393. Big Daddy's Bike Shop on the right at 2217 W 30A</td></tr>
+              <tr class="key"><td class="mi">3.5</td><td>Blue Mountain Beach — short steep pitch, ~65 ft, the high point of the coast for a long way in either direction</td></tr>
+              <tr class="fuel"><td class="mi">6.5</td><td>Grayton Beach, CR 283 crosses. Black Bear Bread Co. one block off the route</td></tr>
+              <tr><td class="mi">8.0</td><td>WaterColor — path traffic picks up sharply after 8 a.m.</td></tr>
+              <tr class="fuel"><td class="mi">9.5</td><td>Seaside, Central Square. Modica Market, airstream food trucks</td></tr>
+              <tr class="fuel"><td class="mi">11.0</td><td>Seagrove / CR 395. Publix at WaterColor Crossings ½ mi north, opens 7 a.m.</td></tr>
+              <tr><td class="mi">13.5</td><td>WaterSound · <span style="opacity:.75">15.0 Alys Beach · 16.0 Rosemary Beach</span></td></tr>
+              <tr class="key"><td class="mi">16.6</td><td>Inlet Beach — 30A ends at US 98. Turn around</td></tr>
+              <tr class="key"><td class="mi">33.2</td><td>Home</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="side">
+          <div class="panel">
+            <h3>Live map</h3>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Inlet+Beach,+FL&amp;waypoints=Blue+Mountain+Beach,+FL%7CGrayton+Beach+State+Park,+FL%7CSeaside,+FL%7CSeagrove+Beach,+FL%7CAlys+Beach,+FL%7CRosemary+Beach,+FL&amp;travelmode=driving">Open outbound half <span class="arrow">→</span></a>
+            <p class="maphint">Shows the 16.6 miles out; you ride the same road back. Driving mode on purpose — it follows the actual pavement instead of shunting you onto footpaths.</p>
+          </div>
+          <div class="panel">
+            <h3>The one real decision</h3>
+            <p>The Timpoochee Trail — a paved 10-foot path — parallels 30A for essentially the whole length. Before about 8 a.m. the road is better: smoother, faster, and nearly empty. After 8 the road fills with rental golf carts and beach traffic and the path fills with families, and neither is much good for tempo. Ride the road early and treat the path as a bail-out, not a plan.</p>
+          </div>
+          <div class="panel">
+            <h3>Fuel</h3>
+            <ul class="stops">
+              <li><i class="pin"></i><div><div class="name">Publix, WaterColor Crossings</div><div class="det">110 Watercolor Way, on CR 395 half a mile north of 30A. <span class="mono">7 a.m.–10 p.m.</span> The most reliable water and ice on the whole coast.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Seaside Central Square</div><div class="det">Mile 9.5, right on the route. Modica Market plus the food trucks; coffee before 7 is hit or miss.</div></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ ROUTE 2 ============ -->
+    <article class="route" id="r2">
+      <div class="rhead">
+        <div class="rdist mono">43<small>mi</small></div>
+        <h2>Coast + Two Spurs</h2>
+      </div>
+      <div class="rmeta">
+        <span class="chip">≈900 ft climbing</span>
+        <span class="chip">Out &amp; back + spurs</span>
+        <span class="chip">2h40–3h00</span>
+        <span class="chip">Best shade on 30A</span>
+      </div>
+      <p class="prose">Route 1 with the two north-running county roads stitched in. CR 283 and CR 395 both climb gently off the coast into the pine flatwoods behind it, and CR 395 through Point Washington — live oaks over the road, Eden Gardens at the top — is the nicest pavement in South Walton that isn't on the water. Neither spur carries much traffic, and both give you ten quiet miles without touching US 98.</p>
+      <div class="rbody">
+        <div>
+          <table class="cue">
+            <thead><tr><th>Mile</th><th>Cue</th></tr></thead>
+            <tbody>
+              <tr><td class="mi">0.0</td><td>East on 30A as Route 1</td></tr>
+              <tr class="key"><td class="mi">6.5</td><td>Grayton Beach — <strong>left (north) on CR 283</strong></td></tr>
+              <tr><td class="mi">9.1</td><td>US 98. Turn around, back south</td></tr>
+              <tr><td class="mi">11.7</td><td>Back on 30A, continue east</td></tr>
+              <tr class="fuel"><td class="mi">16.2</td><td>Seagrove — <strong>left (north) on CR 395</strong>. Publix ½ mi up on the right</td></tr>
+              <tr class="key"><td class="mi">18.0</td><td>Point Washington · <strong>18.7 Eden Gardens State Park</strong> — water, shade, turn around</td></tr>
+              <tr><td class="mi">21.4</td><td>Back on 30A, continue east</td></tr>
+              <tr class="key"><td class="mi">27.0</td><td>Inlet Beach. Turn around, straight home on 30A</td></tr>
+              <tr class="key"><td class="mi">43.4</td><td>Home</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="side">
+          <div class="panel">
+            <h3>Live map</h3>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Inlet+Beach,+FL&amp;waypoints=Grayton+Beach+State+Park,+FL%7CEden+Gardens+State+Park,+Santa+Rosa+Beach,+FL%7CSeaside,+FL%7CAlys+Beach,+FL&amp;travelmode=driving">Open the spur version <span class="arrow">→</span></a>
+            <p class="maphint">Forces the CR 395 leg through Point Washington. Add the CR 283 spur by eye — it's a straight 2.6 miles north from Grayton to US 98 and straight back.</p>
+          </div>
+          <div class="panel">
+            <h3>Trim it or grow it</h3>
+            <p>Drop the CR 283 spur and you have a clean 38. Skip Inlet Beach and turn at Alys instead and you have 41 with two fewer miles of the busiest section. This is the route to move around depending on how the retreat schedule lands.</p>
+          </div>
+          <div class="panel">
+            <h3>Fuel</h3>
+            <ul class="stops">
+              <li><i class="pin"></i><div><div class="name">Publix, WaterColor Crossings</div><div class="det">Mile 16.5, directly on the CR 395 spur. Fill both bottles here — it's the last real stop before the turnaround.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Eden Gardens State Park</div><div class="det">Mile 18.7. Restrooms and a water fountain under the oaks; small entry fee for the gardens, but the parking area is free to roll into.</div></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ ROUTE 3 ============ -->
+    <article class="route" id="r3">
+      <div class="rhead">
+        <div class="rdist mono">62<small>mi</small></div>
+        <h2>Bay Bridge &amp; Black Creek</h2>
+      </div>
+      <div class="rmeta">
+        <span class="chip">≈1,300 ft climbing</span>
+        <span class="chip">3h45–4h15</span>
+        <span class="chip warn">4.5 mi on US 98</span>
+        <span class="chip warn">2.3 mi exposed bridge</span>
+      </div>
+      <p class="prose">The first route that leaves the beach. You cross Choctawhatchee Bay on the Clyde B. Wells Bridge — 2.3 miles of new four-lane deck with a paved shoulder on both sides, and the only sustained climb within fifty miles — into Freeport, then loop out onto Black Creek Road through pine and creek bottom where you'll see almost no cars at all. The cost of admission is roughly four and a half miles of US 98: divided, shouldered, and 55&nbsp;mph. It is genuinely fine at 7 a.m. and genuinely unpleasant at 10.</p>
+      <div class="rbody">
+        <div>
+          <table class="cue">
+            <thead><tr><th>Mile</th><th>Cue</th></tr></thead>
+            <tbody>
+              <tr><td class="mi">0.0</td><td>East on 30A</td></tr>
+              <tr class="key"><td class="mi">6.5</td><td>Grayton Beach — <strong>left (north) on CR 283</strong></td></tr>
+              <tr class="key"><td class="mi">9.1</td><td><strong>Right (east) on US 98.</strong> Shoulder the whole way; stay right of the rumble strip</td></tr>
+              <tr class="key"><td class="mi">13.6</td><td><strong>Left (north) on US 331</strong></td></tr>
+              <tr class="key"><td class="mi">16.5</td><td>Clyde B. Wells Bridge begins — 2.3 mi over the bay. Crosswind is the whole story here</td></tr>
+              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, The Shoppes at Freeport</strong>, 16400 US-331 S. Stop. Ice, bottles, food</td></tr>
+              <tr><td class="mi">23.0</td><td>Cross SR 20, continue north on US 331 through Freeport</td></tr>
+              <tr class="key"><td class="mi">≈27</td><td><strong>Right on CR 3280 (Black Creek Road).</strong> Rural, rolling, near-empty</td></tr>
+              <tr class="key"><td class="mi">≈37</td><td><strong>Right (west) on SR 20</strong>, back toward Freeport</td></tr>
+              <tr class="fuel"><td class="mi">≈41</td><td>Freeport. Top off, then <strong>south on US 331</strong></td></tr>
+              <tr><td class="mi">≈49</td><td>Bridge southbound · <strong>≈54 right (west) on US 98</strong></td></tr>
+              <tr class="key"><td class="mi">≈58</td><td>Left (south) on CR 283 → 30A → west to the house</td></tr>
+              <tr class="key"><td class="mi">≈62</td><td>Home</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="side">
+          <div class="panel">
+            <h3>Live map</h3>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Publix+Super+Market+at+The+Shoppes+at+Freeport,+16400+US-331+S,+Freeport,+FL+32439&amp;waypoints=Grayton+Beach+State+Park,+FL%7CCounty+Highway+283+%26+US-98,+Santa+Rosa+Beach,+FL&amp;travelmode=driving">Coast to Freeport <span class="arrow">→</span></a>
+            <p style="margin-top:12px"><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=Publix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439&amp;destination=Freeport,+FL&amp;waypoints=4576+County+Highway+3280,+Freeport,+FL+32439&amp;travelmode=driving">The Black Creek loop <span class="arrow">→</span></a></p>
+            <p class="maphint">Two links because the loop is the part worth checking. Black Creek Road runs from US 331 across to SR 20; the ≈20-mile loop figure is my estimate, so read the real number off the link and adjust the day's total before you leave.</p>
+          </div>
+          <div class="panel">
+            <h3>The bridge</h3>
+            <p>US 331 is not a limited-access highway here, so it's legal to ride, and the rebuilt span carries shoulders in both directions. What it doesn't carry is shelter: 2.3 miles of open water with nothing to break a south wind. Check the forecast direction before you go — a headwind outbound means a tailwind home, which is the right way round for a hot day.</p>
+          </div>
+          <div class="panel">
+            <h3>Fuel</h3>
+            <ul class="stops">
+              <li><i class="pin"></i><div><div class="name">Publix, The Shoppes at Freeport</div><div class="det">16400 US-331 S — mile 22 outbound and mile 41 inbound, so you hit it twice. Deli, ice, restroom.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Exxon, 979 State Hwy 20 E</div><div class="det">Freeport, <span class="mono">24 hours</span>. Backup if you're through before Publix opens.</div></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ ROUTE 4 ============ -->
+    <article class="route" id="r4">
+      <div class="rhead">
+        <div class="rdist mono">98<small>mi</small></div>
+        <h2>The Ebro Century</h2>
+      </div>
+      <div class="rmeta">
+        <span class="chip">≈2,000 ft climbing</span>
+        <span class="chip">6h15–7h00 rolling</span>
+        <span class="chip">3 supply stops</span>
+        <span class="chip warn">Needs a whole day</span>
+      </div>
+      <p class="prose">Same start as Route 3, then straight on east down State Road 20 — a rural two-lane through wetland and longleaf between Eglin's eastern boundary and the Choctawhatchee River. Bruce is a crossroads with a store. Ebro is a crossroads with a store, a motel and a restaurant that does home cooking, and it makes an excellent place to sit down for twenty minutes at the far end of a hot ride. You come back the way you went, pass within a mile of the house at 78, and finish with a lap out to Seaside if you still want the round number.</p>
+      <div class="rbody">
+        <div>
+          <table class="cue">
+            <thead><tr><th>Mile</th><th>Cue</th></tr></thead>
+            <tbody>
+              <tr><td class="mi">0.0</td><td>As Route 3: 30A → CR 283 → US 98 → US 331 north</td></tr>
+              <tr class="fuel"><td class="mi">22.0</td><td><strong>Publix, Freeport.</strong> Fill everything — the next stop is 13 miles out</td></tr>
+              <tr class="key"><td class="mi">23.0</td><td><strong>Right (east) on SR 20</strong></td></tr>
+              <tr class="fuel"><td class="mi">≈35</td><td><strong>Bruce</strong> — SR 20 at SR 81. Bruce Store: cold drinks, and that's about it</td></tr>
+              <tr class="key"><td class="mi">≈39</td><td><strong>Ebro</strong> — SR 20 at SR 79. Center of the Crossroads: store and a sit-down restaurant. <strong>Turn around.</strong> Eat here</td></tr>
+              <tr class="fuel"><td class="mi">≈43</td><td>Bruce again — top off</td></tr>
+              <tr class="fuel"><td class="mi">≈56</td><td>Freeport. Publix. Ice in the bottles and down the back of the jersey</td></tr>
+              <tr><td class="mi">≈62</td><td>Bridge southbound · <strong>≈67 right (west) on US 98</strong> · ≈71 south on CR 283</td></tr>
+              <tr class="key"><td class="mi">≈78</td><td>Pass the house. <strong>Real decision point</strong> — stop here for a fine 78, or carry on east</td></tr>
+              <tr><td class="mi">≈88</td><td>Seaside. Turn around</td></tr>
+              <tr class="key"><td class="mi">≈98</td><td>Home</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="side">
+          <div class="panel">
+            <h3>Live map</h3>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;origin=5664+W+County+Hwy+30A,+Santa+Rosa+Beach,+FL+32459&amp;destination=Ebro,+FL+32437&amp;waypoints=Grayton+Beach+State+Park,+FL%7CPublix+Super+Market+at+The+Shoppes+at+Freeport,+Freeport,+FL+32439%7CBruce,+FL&amp;travelmode=driving">Open outbound half <span class="arrow">→</span></a>
+            <p class="maphint">Roughly 39 miles out. Double it for the core ride, then add the 30A finish to taste.</p>
+          </div>
+          <div class="panel">
+            <h3>Read this before you commit</h3>
+            <p>At 16&nbsp;mph plus three stops this is a 7½-hour day. Leave at 6:30 and you're home around two in the afternoon, which is a whole working day gone — worth planning around rather than discovering at mile 60.</p>
+            <p>It's also the one route with real exposure: past Freeport there is nothing between the stores, no shade to speak of, and phone coverage on SR 20 is thin in places. Tell someone the plan and turn on live tracking.</p>
+          </div>
+          <div class="panel">
+            <h3>Fuel</h3>
+            <ul class="stops">
+              <li><i class="pin"></i><div><div class="name">Publix, Freeport</div><div class="det">Miles 22 and 56. Your two anchors — everything else out here is a gas station.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Bruce Store</div><div class="det">SR 20 at SR 81, miles ≈35 and ≈43. Small; take what you can get.</div></div></li>
+              <li><i class="pin"></i><div><div class="name">Center of the Crossroads, Ebro</div><div class="det">SR 20 at SR 79, mile ≈39. Store plus a home-cooking restaurant — this is the real meal stop, not a top-off.</div></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ============ HEAT ============ -->
+  <section class="block">
+    <h2>Heat is the limiter, not the terrain</h2>
+    <p class="prose" style="margin-top:14px">September on this coast averages a high of 87&nbsp;°F with humidity around 73%, which puts the afternoon heat index well above the air temperature and makes the clock matter more than the profile. Nothing here climbs; everything here cooks. The forecast for your week is unusually kind — the Hurricane Center expects no tropical development anywhere in the Gulf over the next seven days, and the Panhandle is sitting under drier air with isolated 15–25% rain chances — so the plan is simply: start at first light, be done or in shade by eleven.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>The clock</h3>
+        <dl class="kv">
+          <dt>6:27 a.m.</dt><dd>Sunrise. Legal and practical to roll at 6:15 with a light.</dd>
+          <dt>6:15–8:00</dt><dd>The good window. 30A is empty, US 98 is tolerable.</dd>
+          <dt>10:00</dt><dd>Golf carts, beach traffic, and the heat index all arrive together.</dd>
+          <dt>6:55 p.m.</dt><dd>Sunset — your hard backstop on the century.</dd>
+        </dl>
+      </div>
+      <div class="panel">
+        <h3>Water math</h3>
+        <p>Plan on a bottle an hour minimum and closer to a bottle and a half once it's over 85. Two large bottles gets you about two hours, which is why every route above is built around a Publix rather than a nice view.</p>
+        <p>Take more electrolyte than you think — sweat rates here are high and the salt loss is what ends rides, not the calories. Ice down the jersey at every stop on the century; it buys you a genuine half hour.</p>
+      </div>
+      <div class="panel">
+        <h3>Afternoon storms</h3>
+        <p>Even a dry week produces isolated Gulf convection after about noon, and any of it can turn locally strong with 40–60&nbsp;mph gusts and a lot of lightning. On the flat there is nowhere to hide. Another reason the century starts at 6:30 and not at 9.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NAVIGATION ============ -->
+  <section class="block">
+    <h2>Directions, an audiobook, and a phone that survives</h2>
+    <p class="prose" style="margin-top:14px">What you're describing — a route loaded in advance, spoken turn cues, an audiobook running underneath, and battery left at the end — is exactly what <strong>Ride with GPS</strong> is built for, and it's the app the touring and club crowd defaults to for this reason. The trick is that you never look at the screen.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>Set it up the night before</h3>
+        <p>Build the route on the desktop planner, then in the phone app download <em>Offline Maps</em> for the Walton County area. That's the step that matters: with the maps cached you can ride the whole thing in airplane mode, which kills the single biggest battery drain there is — the radio hunting for signal on SR 20.</p>
+        <p>Turn-by-turn voice navigation announces each turn out loud and flashes a visual cue over the lock screen, so the phone stays in your pocket, screen off, the entire ride.</p>
+      </div>
+      <div class="panel">
+        <h3>What that costs you</h3>
+        <dl class="kv">
+          <dt>Screen off<br>+ airplane</dt><dd>Roughly 5–8% per hour. A 7-hour century lands comfortably inside one charge.</dd>
+          <dt>Screen on</dt><dd>Three to four times that. This is the whole difference.</dd>
+          <dt>Insurance</dt><dd>A 10,000 mAh bank in a jersey pocket or top-tube bag. Cheap, and it makes the 98 a non-question.</dd>
+        </dl>
+      </div>
+      <div class="panel">
+        <h3>The audiobook, legally</h3>
+        <p>Voice cues duck the audiobook automatically on both iOS and Android — the book pauses, the turn is spoken, the book resumes. No conflict.</p>
+        <p>But Florida Statute 316.304 treats a bicycle as a vehicle and prohibits riding on the road with a headset in both ears; the exception is a single earpiece leaving the other ear open to traffic. <strong>One earbud.</strong> The restriction doesn't apply on a path separated from the roadway, which covers the Timpoochee Trail but none of the rest of these routes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOCAL ============ -->
+  <section class="block">
+    <h2>Local intel</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3>Nearest shop</h3>
+        <p><strong>Big Daddy's Bike Shop</strong>, 2217 W County Hwy 30A — two miles east of the house, directly on Route 1. Full repair, road bikes, and a mobile team that will come to you. <span class="mono">Mon–Sat 9–4, Sun 9–2 · (850) 622-1165</span>. Worth knowing before you need a tubeless plug on a Sunday afternoon.</p>
+      </div>
+      <div class="panel">
+        <h3>Who else is out there</h3>
+        <p><strong>VELO 30A</strong> is the local Strava club and the fastest way to see what people actually rode this week and at what hour. <strong>Emerald Coast Cyclists</strong> is the organized club, but their weekly rides leave from Fort Walton Beach at 4:45 p.m. Tuesdays and Thursdays — 45 minutes away and at the wrong end of the day for September.</p>
+      </div>
+      <div class="panel">
+        <h3>What the locals say about 30A</h3>
+        <p>Consistent advice on the regional forums: riding 30A itself is fine but do it early, because it's a narrow two-lane with heavy tourist traffic and passing a bike requires crossing the centre line. The same crowd is blunt about US 98 — usable shoulders, but 55–65&nbsp;mph traffic and not somewhere to spend more time than a route requires. Both routes 3 and 4 above are built to spend as few miles on it as the geography allows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE WEEK ============ -->
+  <section class="block">
+    <h2>How I'd order the week</h2>
+    <table class="plan">
+      <thead><tr><th>Day</th><th>Ride</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Mon 7</td><td><strong>Arrive</strong></td><td>Travel day. Build the bike, load the routes, download offline maps while you have wifi.</td></tr>
+        <tr><td>Tue 8</td><td><strong>33 mi</strong> — 30A End to End</td><td>Learn the road, find out what the humidity actually does to you, note where the water is.</td></tr>
+        <tr><td>Wed 9</td><td><strong>98 mi</strong> — The Ebro Century</td><td>Do the big one early in the week while you're fresh and while there's a recovery day behind it. Needs the lightest schedule of the retreat — pick that day now.</td></tr>
+        <tr><td>Thu 10</td><td><strong>Off</strong> or an easy 20 on the Timpoochee</td><td>Spin to Seaside for coffee and back. Nothing more.</td></tr>
+        <tr><td>Fri 11</td><td><strong>43 mi</strong> — Coast + Two Spurs</td><td>The prettiest of the four and short enough to be back before the day starts.</td></tr>
+        <tr><td>Sat 12</td><td><strong>Depart</strong></td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="prose" style="margin-top:20px">If the century won't fit around the retreat, Route 3 at 62 is the honest substitute — it has the bridge, the bay and the empty rural miles, and it's back before lunch. And if Wednesday turns windy, swap it with Friday; a 20&nbsp;mph south wind over 2.3 miles of open bay deck is the one condition on this coast worth rescheduling for.</p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="block">
+    <h2>Where this came from</h2>
+    <div class="sources">
+      <p><a href="https://sowal.com/forum/threads/cycling-routes-near-seaside-watercolor-and-30a.79646/" target="_blank" rel="noopener">SoWal Forum — cycling routes near Seaside/WaterColor and 30A</a></p>
+      <p><a href="https://www.tripadvisor.com/ShowTopic-g34617-i1613-k7483128-Road_bike_routes-Santa_Rosa_Beach_Florida.html" target="_blank" rel="noopener">Tripadvisor — road bike routes, Santa Rosa Beach</a></p>
+      <p><a href="https://www.strava.com/clubs/328058" target="_blank" rel="noopener">VELO 30A on Strava</a> · <a href="https://www.sites.google.com/site/emeraldcoastcyclists/club-rides" target="_blank" rel="noopener">Emerald Coast Cyclists club rides</a></p>
+      <p><a href="https://www.visitsouthwalton.com/blog/hike-bike-your-way-through-south-waltons-trails/" target="_blank" rel="noopener">Visit South Walton — hiking &amp; biking trails</a></p>
+      <p><a href="https://floridahikes.com/point-washington-30a-trail/" target="_blank" rel="noopener">Florida Hikes — Point Washington &amp; the 30A Trail</a></p>
+      <p><a href="https://www.publix.com/locations/1351-the-shoppes-at-freeport" target="_blank" rel="noopener">Publix — The Shoppes at Freeport</a> · <a href="https://www.publix.com/locations/153-watercolor-crossings" target="_blank" rel="noopener">Publix — WaterColor Crossings</a></p>
+      <p><a href="https://www.washcomall.com/ebro" target="_blank" rel="noopener">Washington County Chamber — Ebro</a></p>
+      <p><a href="https://www.enr.com/articles/43299-highwaysbridges-best-project-choctawhatchee-bay-bridge-us-331" target="_blank" rel="noopener">ENR — Choctawhatchee Bay Bridge (US 331)</a></p>
+      <p><a href="https://support.ridewithgps.com/hc/en-us/articles/14156247374747-Battery-Saving-Tips" target="_blank" rel="noopener">Ride with GPS — battery saving tips</a> · <a href="https://ridewithgps.com/app" target="_blank" rel="noopener">offline maps &amp; navigation</a></p>
+      <p><a href="http://flbikelaw.org/2010/07/headsets/" target="_blank" rel="noopener">Florida Bicycle Law — headsets (FS 316.304)</a></p>
+      <p><a href="https://www.nhc.noaa.gov/gtwo.php" target="_blank" rel="noopener">NHC Graphical Tropical Weather Outlook</a> · <a href="https://www.floridadisaster.org/weather/" target="_blank" rel="noopener">Florida Disaster weather</a></p>
+      <p><a href="https://www.bigdaddysbikeshop.com/" target="_blank" rel="noopener">Big Daddy's Bike Shop</a></p>
+    </div>
+    <footer class="foot">Mileages marked ≈ are estimates from mapped road geometry and should be confirmed against the live map links — particularly the Black Creek Road leg on Route 3 and everything east of Freeport on Route 4. Everything else is measured off known intersections.</footer>
+  </section>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- projection -------------------------------------------------------
+  var LON0 = -86.37, LAT0 = 30.575, K = 0.8625, S = 2000, PX = 40, PY = 25;
+  function px(lon) { return (lon - LON0) * K * S + PX; }
+  function py(lat) { return (LAT0 - lat) * S + PY; }
+  function line(pts) {
+    var d = "", i;
+    for (i = 0; i < pts.length; i++) {
+      d += (i ? "L" : "M") + px(pts[i][1]).toFixed(1) + " " + py(pts[i][0]).toFixed(1) + " ";
+    }
+    return d.trim();
+  }
+
+  // ---- geography (lat, lon) --------------------------------------------
+  var COAST = [[30.386,-86.42],[30.378,-86.33],[30.371,-86.30],[30.366,-86.28],
+               [30.355,-86.25],[30.340,-86.22],[30.331,-86.20],[30.324,-86.17],
+               [30.319,-86.14],[30.313,-86.11],[30.297,-86.06],[30.284,-86.01],
+               [30.277,-85.99],[30.262,-85.95],[30.240,-85.90],[30.220,-85.85]];
+
+  var BAY_N = [[30.500,-86.42],[30.497,-86.32],[30.492,-86.27],[30.487,-86.22],
+               [30.482,-86.18],[30.478,-86.15],[30.470,-86.138]];
+  var BAY_S = [[30.455,-86.138],[30.443,-86.17],[30.432,-86.20],[30.425,-86.24],
+               [30.420,-86.28],[30.416,-86.32],[30.414,-86.42]];
+
+  var ROADS = {
+    r30a: [[30.377,-86.300],[30.371,-86.293],[30.366,-86.286],[30.366,-86.270],
+           [30.355,-86.245],[30.334,-86.208],[30.325,-86.176],[30.320,-86.145],
+           [30.316,-86.123],[30.300,-86.070],[30.286,-86.032],[30.279,-86.005],
+           [30.277,-85.993],[30.281,-85.993]],
+    us98: [[30.395,-86.42],[30.387,-86.30],[30.383,-86.253],[30.382,-86.201],
+           [30.382,-86.181],[30.379,-86.150],[30.376,-86.121],[30.360,-86.070],
+           [30.330,-86.030],[30.300,-86.005],[30.281,-85.993]],
+    cr393:[[30.366,-86.270],[30.375,-86.263],[30.383,-86.253]],
+    cr283:[[30.334,-86.208],[30.352,-86.205],[30.370,-86.202],[30.382,-86.201]],
+    cr395:[[30.316,-86.123],[30.335,-86.125],[30.348,-86.126],[30.357,-86.128],[30.376,-86.121]],
+    us331:[[30.382,-86.181],[30.392,-86.166],[30.405,-86.157],[30.440,-86.147],
+           [30.470,-86.140],[30.500,-86.133],[30.522,-86.130],[30.545,-86.128]],
+    sr20: [[30.500,-86.133],[30.492,-86.080],[30.478,-86.030],[30.468,-85.980],
+           [30.458,-85.939],[30.446,-85.900],[30.438,-85.879]],
+    cr3280:[[30.545,-86.128],[30.532,-86.090],[30.510,-86.055],[30.487,-86.032],[30.478,-86.030]]
+  };
+
+  // segments each route uses, with the sub-range of each road
+  var ROUTES = {
+    r1: [["r30a", 2, 12]],
+    r2: [["r30a", 2, 12], ["cr283", 0, 3], ["cr395", 0, 3]],
+    r3: [["r30a", 2, 5], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 7],
+         ["cr3280", 0, 4], ["sr20", 0, 2]],
+    r4: [["r30a", 2, 7], ["cr283", 0, 3], ["us98", 3, 4], ["us331", 0, 5],
+         ["sr20", 0, 6]]
+  };
+
+  var TOWNS = [
+    { n:"Dune Allen",     lat:30.366, lon:-86.286, dx:-6,  dy:16, a:"end" },
+    { n:"Grayton Beach",  lat:30.334, lon:-86.208, dx:0,   dy:19, a:"middle" },
+    { n:"Seaside",        lat:30.320, lon:-86.145, dx:0,   dy:19, a:"middle" },
+    { n:"Seagrove",       lat:30.316, lon:-86.123, dx:14,  dy:6,  a:"start" },
+    { n:"Alys",           lat:30.286, lon:-86.032, dx:-4,  dy:17, a:"middle" },
+    { n:"Inlet Beach",    lat:30.277, lon:-85.993, dx:8,   dy:14, a:"start" },
+    { n:"Point Washington",lat:30.348,lon:-86.126, dx:9,   dy:4,  a:"start" },
+    { n:"Santa Rosa Beach",lat:30.383,lon:-86.253, dx:0,  dy:-11, a:"middle" },
+    { n:"Freeport",       lat:30.500, lon:-86.133, dx:12,  dy:-6, a:"start" },
+    { n:"Bruce",          lat:30.458, lon:-85.939, dx:0,   dy:-11,a:"middle" },
+    { n:"Ebro",           lat:30.438, lon:-85.879, dx:-4,  dy:-11,a:"end" }
+  ];
+
+  var STOPS = [
+    { n:"Publix · WaterColor", lat:30.322, lon:-86.128, r:["r1","r2","r4"], dx:12, dy:-6, a:"start" },
+    { n:"Eden Gardens",        lat:30.357, lon:-86.128, r:["r2"],           dx:11, dy:4,  a:"start" },
+    { n:"Publix · Freeport",   lat:30.482, lon:-86.135, r:["r3","r4"],      dx:-12,dy:4,  a:"end" },
+    { n:"Bruce Store",         lat:30.458, lon:-85.939, r:["r4"],           dx:0,  dy:26, a:"middle" },
+    { n:"Crossroads · Ebro",   lat:30.438, lon:-85.879, r:["r4"],           dx:-6, dy:48, a:"end" }
+  ];
+
+  var LABELS = [
+    { t:"GULF OF MEXICO", lat:30.268, lon:-86.200, cls:"water-label", size:15, sp:"0.22em" },
+    { t:"CHOCTAWHATCHEE BAY", lat:30.452, lon:-86.290, cls:"water-label", size:12, sp:"0.16em" },
+    { t:"CR 30A", lat:30.306, lon:-86.082, cls:"road-label", size:11, sp:"0.1em", rot:-18 },
+    { t:"US 98", lat:30.401, lon:-86.318, cls:"road-label", size:11, sp:"0.1em" },
+    { t:"US 331", lat:30.411, lon:-86.152, cls:"road-label", size:11, sp:"0.1em", rot:-76 },
+    { t:"SR 20", lat:30.487, lon:-86.055, cls:"road-label", size:11, sp:"0.1em", rot:14 },
+    { t:"CR 3280", lat:30.523, lon:-86.078, cls:"road-label", size:10, sp:"0.08em", rot:32 },
+    { t:"CR 283", lat:30.358, lon:-86.212, cls:"road-label", size:10, sp:"0.08em", rot:-84 },
+    { t:"CR 395", lat:30.340, lon:-86.133, cls:"road-label", size:10, sp:"0.08em", rot:-84 }
+  ];
+
+  var HOUSE = { lat:30.366, lon:-86.286 };
+  var BRIDGE = { lat:30.437, lon:-86.147 };
+
+  // ---- build svg --------------------------------------------------------
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("map");
+
+  function el(name, attrs) {
+    var n = document.createElementNS(NS, name), k;
+    for (k in attrs) { if (attrs[k] !== undefined && attrs[k] !== null) n.setAttribute(k, attrs[k]); }
+    return n;
+  }
+  function text(str, x, y, opts) {
+    var t = el("text", {
+      x: x, y: y,
+      "text-anchor": opts.a || "middle",
+      "font-size": opts.size || 12,
+      "letter-spacing": opts.sp || "0.02em",
+      "font-family": opts.mono ? "'Overpass Mono', monospace" : "'Overpass', sans-serif",
+      "font-weight": opts.w || 600,
+      fill: opts.fill,
+      transform: opts.rot ? "rotate(" + opts.rot + " " + x + " " + y + ")" : null
+    });
+    t.textContent = str;
+    return t;
+  }
+
+  // land base
+  svg.appendChild(el("rect", { x:0, y:0, width:1000, height:700, fill:"var(--land)" }));
+
+  // gulf: coastline down to bottom edge
+  var gulfD = line(COAST) + " L1010 700 L-20 700 Z";
+  svg.appendChild(el("path", { d: gulfD, fill:"var(--gulf)" }));
+
+  // a thin sand strip just inland of the coast reads as beach
+  svg.appendChild(el("path", { d: line(COAST), fill:"none", stroke:"var(--sand)", "stroke-width":7, "stroke-linejoin":"round" }));
+
+  // bay
+  var bayD = line(BAY_N) + " " + line(BAY_S).replace(/^M/, "L") + " Z";
+  svg.appendChild(el("path", { d: bayD, fill:"var(--water)" }));
+
+  // roads (base network)
+  var order = ["us98","r30a","us331","sr20","cr3280","cr283","cr395","cr393"];
+  var baseGroup = el("g", {});
+  order.forEach(function (key) {
+    baseGroup.appendChild(el("path", {
+      d: line(ROADS[key]), fill:"none", stroke:"var(--line-2)",
+      "stroke-width": (key === "us98" || key === "us331" || key === "sr20") ? 2.6 : 1.8,
+      "stroke-linecap":"round", "stroke-linejoin":"round"
+    }));
+  });
+  svg.appendChild(baseGroup);
+
+  // active route layer
+  var routeLayer = el("g", {});
+  svg.appendChild(routeLayer);
+
+  // water + road labels
+  LABELS.forEach(function (l) {
+    svg.appendChild(text(l.t, px(l.lon), py(l.lat), {
+      size: l.size, sp: l.sp, rot: l.rot, w: 600,
+      fill: l.cls === "water-label" ? "var(--ink-3)" : "var(--ink-3)"
+    }));
+  });
+
+  // bridge marker
+  svg.appendChild(text("Clyde B. Wells Bridge · 2.3 mi", px(BRIDGE.lon) - 14, py(BRIDGE.lat), {
+    a:"end", size:10.5, sp:"0.04em", w:400, fill:"var(--ink-3)"
+  }));
+
+  // towns
+  TOWNS.forEach(function (t) {
+    var x = px(t.lon), y = py(t.lat);
+    svg.appendChild(el("circle", { cx:x, cy:y, r:2.6, fill:"var(--ink-3)" }));
+    svg.appendChild(text(t.n, x + t.dx, y + t.dy, { a:t.a, size:11.5, w:400, fill:"var(--ink-2)" }));
+  });
+
+  // stop markers layer (redrawn per route)
+  var stopLayer = el("g", {});
+  svg.appendChild(stopLayer);
+
+  // the house
+  var hx = px(HOUSE.lon), hy = py(HOUSE.lat);
+  svg.appendChild(el("circle", { cx:hx, cy:hy, r:8.5, fill:"none", stroke:"var(--accent)", "stroke-width":1.6 }));
+  svg.appendChild(el("circle", { cx:hx, cy:hy, r:4, fill:"var(--accent)" }));
+  svg.appendChild(text("THE HOUSE", hx - 13, hy - 12, { a:"end", size:10.5, sp:"0.14em", w:600, fill:"var(--accent-ink)" }));
+
+  // ---- route drawing ----------------------------------------------------
+  function drawRoute(key) {
+    var segs = ROUTES[key], i;
+    for (i = 0; i < segs.length; i++) {
+      var name = segs[i][0], a = segs[i][1], b = segs[i][2];
+      var pts = ROADS[name].slice(a, b + 1);
+      routeLayer.appendChild(el("path", {
+        d: line(pts), fill:"none", stroke:"var(--accent)",
+        "stroke-width":4.5, "stroke-linecap":"round", "stroke-linejoin":"round",
+        "stroke-opacity": 0.92
+      }));
+    }
+  }
+
+  function render(sel) {
+    while (routeLayer.firstChild) { routeLayer.removeChild(routeLayer.firstChild); }
+    while (stopLayer.firstChild) { stopLayer.removeChild(stopLayer.firstChild); }
+
+    var keys = sel === "all" ? ["r1","r2","r3","r4"] : [sel];
+    keys.forEach(drawRoute);
+
+    STOPS.forEach(function (s) {
+      var show = keys.some(function (k) { return s.r.indexOf(k) !== -1; });
+      if (!show) { return; }
+      var x = px(s.lon), y = py(s.lat);
+      stopLayer.appendChild(el("circle", { cx:x, cy:y, r:5.5, fill:"var(--warn)", stroke:"var(--surface)", "stroke-width":1.6 }));
+      stopLayer.appendChild(text(s.n, x + s.dx, y + s.dy, { a:s.a, size:10.5, w:600, fill:"var(--warn)" }));
+    });
+  }
+
+  render("r1");
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  tabs.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+      render(btn.getAttribute("data-route"));
+    });
+  });
+
+  // clicking a route heading syncs the map
+  ["r1","r2","r3","r4"].forEach(function (id) {
+    var link = document.querySelector('.glance a[href="#' + id + '"]');
+    if (!link) { return; }
+    link.addEventListener("click", function () {
+      tabs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-route") === id)); });
+      render(id);
+    });
+  });
+})();
+</script>
